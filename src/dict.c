@@ -647,9 +647,12 @@ dictEntry *dictReplaceRaw(dict *d, void *key) {
  * 参数 nofree 决定是否调用键和值的释放函数
  * 0 表示调用，1 表示不调用
  *
- * 找到并成功删除返回 DICT_OK ，没找到则返回 DICT_ERR
+ * 找到并成功删除返回 DICT_OK ，没找到则返回 DICT_ERR (4.0.11版 返回dictEntry / NULL)
  *
  * T = O(1)
+ *
+ * 先在 0 号哈希表中找，如果 th[0] 找不到 && 正在rehash -> 查找 th[1]
+ *
  */
 static int dictGenericDelete(dict *d, const void *key, int nofree)
 {
