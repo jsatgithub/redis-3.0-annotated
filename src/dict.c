@@ -539,7 +539,7 @@ dictEntry *dictAddRaw(dict *d, void *key)
 
     /* Get the index of the new element, or -1 if
      * the element already exists. */
-    // 计算键在哈希表中的索引值
+    // 计算键在哈希表中的索引值（分别在两张表里查找）
     // 如果值为 -1 ，那么表示键已经存在
     // T = O(N)
     if ((index = _dictKeyIndex(d, key)) == -1)
